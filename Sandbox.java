@@ -1,7 +1,7 @@
 public class Sandbox {
 
-    static int WIDTH = 800;
-    static int HEIGHT = 600;
+    static int WIDTH = 1500; // Width and Height are changeable, not sure if this is too big.
+    static int HEIGHT = 800;
     static int CELL_SIZE = 4;
 
     static int COLS = WIDTH / CELL_SIZE;

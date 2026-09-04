@@ -1,6 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*; // keep all of swing? or just what we need, this was easier
+import javax.swing.*;
 
 public class UI extends JFrame {
 
@@ -11,35 +11,68 @@ public class UI extends JFrame {
 
         //Frame Creation
         setTitle("COMP2000 Project");
-        setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //Simulation Area
+        //Main Layout
+        setLayout(new BorderLayout());
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setBackground(Color.GRAY);
+
+        add(mainPanel, BorderLayout.CENTER);
+
+        //Left Area
+        JPanel leftPanel = new JPanel(new BorderLayout());
+        leftPanel.setBackground(Color.GRAY);
+
+        mainPanel.add(leftPanel, BorderLayout.CENTER);
+
+        //Simulation Area - might need to change this later.                                                                     !!!!!!
+        JPanel simWrapper = new JPanel(new FlowLayout(
+                FlowLayout.LEFT,
+                0,
+                0));
+
+        simWrapper.setBackground(Color.GRAY);
+
         JPanel simPanel = new SimPanel();
+
+        simPanel.setPreferredSize(new Dimension(
+                Sandbox.WIDTH,
+                Sandbox.HEIGHT));
+
         simPanel.setBackground(Color.DARK_GRAY);
-        add(simPanel, BorderLayout.CENTER);
+
+        simWrapper.add(simPanel);
+
+        leftPanel.add(simWrapper, BorderLayout.NORTH);
+
+        //Side Bar
+        JPanel sidePanel = new JPanel();
+        sidePanel.setPreferredSize(new Dimension(150, 0));
+        sidePanel.setBackground(Color.GRAY);
+
+        mainPanel.add(sidePanel, BorderLayout.EAST);
+
+        //Bottom Bar
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setBackground(Color.GRAY);
+
+        leftPanel.add(bottomPanel, BorderLayout.CENTER);
+
+        setSize(
+                Sandbox.WIDTH + 150,
+                Sandbox.HEIGHT + 60);
+
+        setLocationRelativeTo(null);
+        setVisible(true);
+
+        //Simulation Timer
 
         Timer timer = new Timer(16, e -> {
             sandbox.step();
             simPanel.repaint();
         });
         timer.start();
-
-        //Side Bar
-        JPanel sidePanel = new JPanel();
-        sidePanel.setPreferredSize(new Dimension(150, 0));
-        sidePanel.setBackground(Color.GRAY);
-        add(sidePanel, BorderLayout.EAST);
-
-        //Bottom Bar
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.setPreferredSize(new Dimension(0, 60));
-        bottomPanel.setBackground(Color.GRAY);
-        add(bottomPanel, BorderLayout.SOUTH);
-
-        setSize(width, height);
-        setLocationRelativeTo(null);
-        setVisible(true);
     }
 
     // draws or creates the sandbox and handles clicks within the simultaed area

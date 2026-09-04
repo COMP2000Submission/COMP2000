@@ -83,9 +83,9 @@ public class UI extends JFrame {
                 void place(MouseEvent e) {
                     int col = e.getX() / Sandbox.CELL_SIZE;
                     int row = e.getY() / Sandbox.CELL_SIZE;
-                    // Collisiojn detection to ensure that we cant click outside of the simulated enviroment/grid
+                    // Collision detection to ensure that we cant click outside of the simulated enviroment/grid
                     if (row >= 0 && row < Sandbox.ROWS && col >= 0 && col < Sandbox.COLS) {
-                        sandbox.grid[row][col] = 1;
+                        sandbox.grid[row][col] = new Sand();
                         repaint();
                     }
                 }
@@ -107,13 +107,19 @@ public class UI extends JFrame {
 
         // called whenever the panel needs to redraw
         protected void paintComponent(Graphics g) {
-            super.paintComponent(g); // paint the dark gray background first
-            g.setColor(Color.RED);
+            super.paintComponent(g);
+            
             int s = Sandbox.CELL_SIZE;
-            // draw our material from the grid
+            
             for (int row = 0; row < Sandbox.ROWS; row++) {
                 for (int col = 0; col < Sandbox.COLS; col++) {
-                    if (sandbox.grid[row][col] == 1) {
+                    
+                    Elements element = sandbox.grid[row][col];
+                    
+                    if (element != null) {
+                        
+                        g.setColor(element.getColor());
+                        
                         g.fillRect(col * s, row * s, s, s);
                     }
                 }

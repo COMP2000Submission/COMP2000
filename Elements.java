@@ -38,6 +38,6 @@ class Fire extends Elements {
 
 class Gas extends Elements {
     public Gas() {
-        super(false, false, Color.WHITE, false);
+        super(false, true, Color.WHITE, true);
     }
 }

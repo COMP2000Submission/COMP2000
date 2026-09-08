@@ -4,9 +4,9 @@ public class Main {
 
         Sandbox sandbox = new Sandbox();
 
-        UI frame = new UI(
-                Sandbox.WIDTH,
-                Sandbox.HEIGHT,
-                sandbox);
+        new UI(
+            Sandbox.WIDTH,
+            Sandbox.HEIGHT,
+            sandbox);
     }
 }

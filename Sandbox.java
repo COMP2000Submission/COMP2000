@@ -20,29 +20,25 @@ public class Sandbox {
     int frameCounter = 0;
 
     // Checks that a position is inside the grid
-    public void checkPosition(int row, int col) throws InvalidException {
-
+    public void checkPosition(int row, int col) throws Exception {
         if (row < 0 || row >= ROWS ||
                 col < 0 || col >= COLS) {
-
-            throw new InvalidException(
+            throw new Exception(
                     "Invalid grid position: [" + row + "][" + col + "]");
         }
     }
 
-    public void moveElement(int row, int col, int newRow, int newCol) throws InvalidException {
+    public void moveElement(int row, int col, int newRow, int newCol) throws Exception {
         // Check both positions
         checkPosition(row, col);
         checkPosition(newRow, newCol);
         // Check that there is actually an element to move
         if (grid[row][col] == null) {
-            throw new InvalidException(
-                    "Cannot move an empty cell.");
+            throw new Exception("Cannot move an empty cell.");
         }
         // Check that the destination is empty
         if (grid[newRow][newCol] != null) {
-            throw new InvalidException(
-                    "Cannot move element into an occupied cell.");
+            throw new Exception("Cannot move element into an occupied cell.");
         }
         // Move element
         grid[newRow][newCol] = grid[row][col];
@@ -62,10 +58,8 @@ public class Sandbox {
                     if (grid[row + 1][col] == null) {
                         try {
                             moveElement(row, col, row + 1, col);
-                        } catch (InvalidException e) {
-                            System.out.println(
-                                    "Gravity error: " + e.getMessage());
-                        }
+                        } catch (Exception e) {
+                            System.out.println("Gravity error: " + e.getMessage());                        }
                     }
                     // If blocked, move diagonally
                     else {
@@ -84,7 +78,7 @@ public class Sandbox {
                         if (Math.random() < 0.6) {
                             try {
                                 reverse_side_gravity(row, col);
-                            } catch (InvalidException e) {
+                            } catch (Exception e) {
                                 System.out.println("Reverse side gravity error: " + e.getMessage());
                             }
                         }
@@ -92,7 +86,7 @@ public class Sandbox {
                         else if (grid[row - 1][col] == null) {
                             try {
                                 moveElement(row, col, row - 1, col);
-                            } catch (InvalidException e) {
+                            } catch (Exception e) {
                                 System.out.println("Reverse gravity error: " + e.getMessage());
                             }
                         }
@@ -131,10 +125,7 @@ public class Sandbox {
 
     // Reverse gravity:
     // 50% chance left, 50% chance right
-    public void reverse_side_gravity(int row, int col) throws InvalidException {
-        if (row - 1 < 0) {
-            throw new InvalidException("Cannot move gas above the grid.");
-        }
+    public void reverse_side_gravity(int row, int col) {
         if (Math.random() < 0.5) {
             if (col > 0 && grid[row - 1][col - 1] == null) {
                 grid[row - 1][col - 1] = grid[row][col];
@@ -169,12 +160,5 @@ public class Sandbox {
         T get() {
             return value;
         }
-    }
-}
-
-// Custom exception for invalid grid positions
-class InvalidException extends Exception {
-    public InvalidException(String message) {
-        super(message);
     }
 }

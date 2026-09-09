@@ -60,9 +60,10 @@ public class UI extends JFrame {
 
         setSize(
                 Sandbox.WIDTH + 150,
-                Sandbox.HEIGHT + 60);
+                Sandbox.HEIGHT + 150);
 
         setLocationRelativeTo(null);
         setVisible(true);
+        setResizable(false);
     }
 }

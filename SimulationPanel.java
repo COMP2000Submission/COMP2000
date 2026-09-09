@@ -9,7 +9,7 @@ public class SimulationPanel extends JPanel {
     public SimulationPanel(Sandbox sandbox) {
         this.sandbox = sandbox;
 
-        // Converting mous to pixels and allows us to spawn our material
+        // Converting mouse to pixels and allows us to spawn our material
         MouseAdapter mouse = new MouseAdapter() {
 
             void place(MouseEvent e) {
@@ -22,7 +22,7 @@ public class SimulationPanel extends JPanel {
                 if (row >= 0 && row < Sandbox.ROWS &&
                         col >= 0 && col < Sandbox.COLS) {
 
-                    sandbox.grid[row][col] = sandbox.Tester.get();
+                    sandbox.grid[row][col] = sandbox.tester.get();
                     repaint();
                 }
             }

@@ -29,30 +29,39 @@ public class Elements {
         // Default: stay still (Fire).
     }
 
-    protected void fallDown(Sandbox sandbox, int row, int col) {
-        if (sandbox.grid[row + 1][col] == null) {
+    protected void fallDown(Sandbox sandbox, int row, int col) { //This method is about one particle, in this row and this column
+        
+        int below = row + 1;
+        if (sandbox.isEmpty(below, col)) { //If the particle below us is empty then we move down.
+            
             try {
-                sandbox.moveElement(row, col, row + 1, col);
-            } catch (Exception e) {
+                // we ask sandbox to move the particle from its current position to the one below it.
+                // this will empty the pixel in its current position and fill the one below it.
+                sandbox.moveElement(row, col, below, col);
+            } catch (Exception e) { // move element might refuse
                 System.out.println("Gravity error: " + e.getMessage());
+                // we catch it so the entire program doesnt crash, rather we just print the reason.
             }
-        } else {
+        } else { // the square beneath ISNT empty so we remain in place and try to move the particle to the side.
             sandbox.side_gravity(row, col);
         }
     }
 
-    protected void floatUp(Sandbox sandbox, int row, int col) {
-        if (Math.random() < 0.6) {
-            try {
+    protected void floatUp(Sandbox sandbox, int row, int col) { // This method is about one particle, in this row and this column. Gases use it to go up.
+        if (Math.random() < 0.6) { // 60% of the time we dont go straight, but drift apart
+            try { // try and move this particle diagonally above
                 sandbox.reverse_side_gravity(row, col);
-            } catch (Exception e) {
+            } catch (Exception e) { // move wasnt allowed so we print the reason.
                 System.out.println("Reverse side gravity error: " + e.getMessage());
             }
-        } else if (sandbox.grid[row - 1][col] == null) {
-            try {
-                sandbox.moveElement(row, col, row - 1, col);
-            } catch (Exception e) {
-                System.out.println("Reverse gravity error: " + e.getMessage());
+        } else {
+            int above = row - 1;
+            if (sandbox.isEmpty(above, col)) {
+                try { // try and move this particle up.
+                    sandbox.moveElement(row, col, above, col);
+                } catch (Exception e) { // move element might refuse
+                    System.out.println("Reverse gravity error: " + e.getMessage());
+                }
             }
         }
     }

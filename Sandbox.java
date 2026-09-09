@@ -19,6 +19,13 @@ public class Sandbox {
 
     int frameCounter = 0;
 
+    public boolean isEmpty(int row, int col) { //checks if the square is on the grid
+        if (row < 0 || row >= ROWS || col < 0 || col >= COLS) {
+            return false; // this position is outside of the grid and treated as not empty
+        }
+        return grid[row][col] == null; // this cell has no element and is treated as empty
+    }
+
     // Checks that a position is inside the grid
     public void checkPosition(int row, int col) throws Exception {
         if (row < 0 || row >= ROWS ||

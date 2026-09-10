@@ -12,7 +12,7 @@ public class Sandbox {
     Tester<Elements> tester = new Tester<>();
 
     public Sandbox() {
-        tester.set(new Gas());
+        tester.set(new Sand());
         grid = new Elements[ROWS][COLS];
         grid[20][40] = tester.get();
     }
@@ -59,7 +59,8 @@ public class Sandbox {
                         try {
                             moveElement(row, col, row + 1, col);
                         } catch (Exception e) {
-                            System.out.println("Gravity error: " + e.getMessage());                        }
+                            System.out.println("Gravity error: " + e.getMessage());
+                        }
                     }
                     // If blocked, move diagonally
                     else {
@@ -130,18 +131,15 @@ public class Sandbox {
             if (col > 0 && grid[row - 1][col - 1] == null) {
                 grid[row - 1][col - 1] = grid[row][col];
                 grid[row][col] = null;
-            }
-            else if (col < COLS - 1 && grid[row - 1][col + 1] == null) {
+            } else if (col < COLS - 1 && grid[row - 1][col + 1] == null) {
                 grid[row - 1][col + 1] = grid[row][col];
                 grid[row][col] = null;
             }
-        }
-        else {
+        } else {
             if (col < COLS - 1 && grid[row - 1][col + 1] == null) {
                 grid[row - 1][col + 1] = grid[row][col];
                 grid[row][col] = null;
-            }
-            else if (col > 0 && grid[row - 1][col - 1] == null) {
+            } else if (col > 0 && grid[row - 1][col - 1] == null) {
                 grid[row - 1][col - 1] = grid[row][col];
                 grid[row][col] = null;
             }

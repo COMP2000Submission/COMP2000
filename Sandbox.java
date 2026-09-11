@@ -47,6 +47,14 @@ public class Sandbox {
 
     public void step() {
         frameCounter++;
+                // Remove fire that has burnt out, otherwise it stays in the grid and piles up
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col < COLS; col++) {
+                if (grid[row][col] instanceof Fire && ((Fire) grid[row][col]).isDead()) {
+                    grid[row][col] = null;
+                }
+            }
+        }
 
         // Normal gravity
         for (int row = ROWS - 2; row >= 0; row--) {

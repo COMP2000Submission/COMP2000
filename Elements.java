@@ -48,7 +48,9 @@ class Fire extends Elements {
         // reverseGravity = true -> fire rises like a real flame instead of piling up like sand
         super(false, true, Color.ORANGE, true);
     }
-
+    public boolean isDead() {
+        return System.currentTimeMillis() - bornAt >= LIFETIME;
+    }
     @Override
     public Color getColor() {
         long age = System.currentTimeMillis() - bornAt;

@@ -22,7 +22,10 @@ public class SimulationPanel extends JPanel {
                 if (row >= 0 && row < Sandbox.ROWS &&
                         col >= 0 && col < Sandbox.COLS) {
 
-                    sandbox.grid[row][col] = sandbox.tester.get();
+                                        Elements selected = sandbox.tester.get();
+
+                    // fire needs its own object per pixel so each one burns out on its own timer
+                    sandbox.grid[row][col] = (selected instanceof Fire) ? new Fire() : selected;
                     repaint();
                 }
             }

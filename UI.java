@@ -1,12 +1,21 @@
 import java.awt.*;
 import javax.swing.*;
 
+//Encapsulation Example
+
 public class UI extends JFrame {
 
-        Sandbox sandbox;
+        //Private prevents other classes from directly 
+        //accessing the sandbox variable inside UI.
+        private Sandbox sandbox;
 
+
+        //Now the UI class is hiding its internal data
         public UI(int width, int height, Sandbox sandbox) {
                 this.sandbox = sandbox;
+
+
+
 
                 // Frame Creation
                 setTitle("COMP2000 Project");

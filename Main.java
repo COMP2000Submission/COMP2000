@@ -5,8 +5,8 @@ public class Main {
         Sandbox sandbox = new Sandbox();
 
         new UI(
-            Sandbox.WIDTH,
-            Sandbox.HEIGHT,
-            sandbox);
+                Sandbox.WIDTH,
+                Sandbox.HEIGHT,
+                sandbox);
     }
 }
